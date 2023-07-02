@@ -14,7 +14,11 @@ public class AdminController {
     public AdminController(UserService userService) {
         this.userService = userService;
     }
-
+    @GetMapping()
+    public String adminsPage(Model model) {
+        model.addAttribute("users", userService.findAll());
+        return "pages/adminspage";
+    }
     @GetMapping("/getusers")
     public String getAllUsers(Model model) {
         model.addAttribute("users", userService.findAll());

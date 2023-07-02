@@ -61,4 +61,21 @@ public class UserService implements UserDetailsService {
     public List<User> findAll(){
         return userRepository.findAll();
     }
+    public User findOne(Long id) {
+        Optional<User> findUser = userRepository.findById(id);
+        return findUser.orElse(null);
+    }
+    @Transactional
+    public void save(User user) {
+        userRepository.save(user);
+    }
+    @Transactional
+    public void update(Long id, User updatedUser) {
+        updatedUser.setId(id);
+        userRepository.save(updatedUser);
+    }
+    @Transactional
+    public void delete(Long id) {
+        userRepository.deleteById(id);
+    }
 }

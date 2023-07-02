@@ -8,8 +8,36 @@
 
 <div th:each="user : ${users}">
     <a th:href="@{user/{id}(id=${user.getId()})}"
-    th:text="${user.getName() + ' ' +user.getEmail()}">User</a>
+       th:text="${user.getName() + ' ' +user.getEmail()}">User</a>
 </div>
+<!--<table class="table table-dark">-->
+<!--    <thead>-->
+<!--    <tr>-->
+<!--        <th scope="col">ID</th>-->
+<!--        <th scope="col">Name</th>-->
+<!--        <th scope="col">Email</th>-->
+<!--        <th scope="col">Gender</th>-->
+<!--        <th scope="col">Delete User</th>-->
+<!--        <th scope="col">Update User</th>-->
+<!--        <th scope="col">Get User </th>-->
+<!--    </tr>-->
+<!--    </thead>-->
+<!--    <tbody>-->
+<!--    <div>-->
+<!--        <th:block th:each="user : ${users}">-->
+<!--            <tr>-->
+<!--                <td th:text="${user.getId()}">Value</td>-->
+<!--                <td th:text="${user.getName()}">Value</td>-->
+<!--                <td th:text="${user.getEmail()}">Value</td>-->
+<!--                <td th:text="${user.getSex()}">Value</td>-->
+<!--                <td th:text="${user.getSex()}">Value</td>-->
+<!--                <td th:text="${user.getSex()}">Value</td>-->
+<!--                <td th:text="${user.getSex()}">Value</td>-->
+<!--            </tr>-->
+<!--        </th:block>-->
+<!--    </div>-->
+<!--    </tbody>-->
+<!--</table>-->
 <br/>
 <hr/>
 <a href="/user/new">Create new user.</a>

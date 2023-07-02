@@ -13,7 +13,7 @@ public class User {
     @Id
     @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Long id;
     @Column(name = "name", unique = true)
     @NotEmpty(message = "Name shouldn't be empty!")
     @Size(min = 3, message = "Minimal name size is 3")
@@ -49,7 +49,7 @@ public class User {
         this.password = password;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -87,7 +87,7 @@ public class User {
         this.sex = sex;
     }
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
