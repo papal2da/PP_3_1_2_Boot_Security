@@ -4,37 +4,49 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
+import java.util.Collection;
 
 @Entity
-@Table(name ="user")
+@Table(name = "user")
 public class User {
 
     @Id
-    @Column
+    @Column(name = "id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    int id;
-    @Column
+    private int id;
+    @Column(name = "name")
     @NotEmpty(message = "Name shouldn't be empty!")
     @Size(min = 3, message = "Minimal name size is 3")
-    String name;
-    @Column
-    @NotEmpty(message = "Surname shouldn't be empty!")
-    String surname;
-    @Column
+    private String name;
+    @Column(name = "password")
+    private String password;
+    @Column(name = "email")
     @NotEmpty(message = "Email shouldn't be empty!")
     @Email(message = "Email should be valid!")
-    String email;
-    @Column
-    @NotEmpty(message = "Sex shouldn't be empty!")
-    String sex;
+    private String email;
+    @Column(name = "sex")
+    @NotEmpty(message = "Gender shouldn't be empty!")
+    private String sex;
+    @ManyToMany
+    @JoinTable(name = "users_roles",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private Collection<Role> roles;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     public void setId(int id) {
         this.id = id;
     }
 
-    public User(String name, String surname, String email, String sex) {
+    public User(String name, String email, String sex) {
         this.name = name;
-        this.surname = surname;
         this.email = email;
         this.sex = sex;
     }
@@ -50,13 +62,6 @@ public class User {
         this.name = name;
     }
 
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
 
     public String getEmail() {
         return email;
@@ -83,7 +88,6 @@ public class User {
         return "User{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", surname='" + surname + '\'' +
                 ", age=" + email +
                 ", sex=" + sex +
                 '}';
