@@ -5,7 +5,7 @@
     <title>Edit user: </title>
 </head>
 <body>
-<form th:method ="PATCH" th:action="@{admin/user/{id}(id=${user.getId()})}" th:object="${user}">
+<form th:method ="PATCH" th:action="@{/admin/user/{id}(id=${user.getId()})}" th:object="${user}">
   <label for="name">Введите имя: </label>
   <input type="text" th:field="*{name}" id="name">
   <div style="color:indianred" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name error.</div>
@@ -20,5 +20,6 @@
   <br/>
   <input type="submit" value="Update"/>
 </form>
+<a href="/logout">Logout.</a>
 </body>
 </html>

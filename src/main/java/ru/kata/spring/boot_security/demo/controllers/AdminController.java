@@ -61,11 +61,11 @@ public class AdminController {
         userService.update(id, user);
         return "redirect:/admin";
     }
-//
-//    @DeleteMapping("/{id}")
-//    public String delete(@PathVariable("id") int id) {
-//        usersService.delete(id);
-//        return "redirect:/user";
-//    }
+
+    @DeleteMapping("/user/{id}")
+    public String delete(@PathVariable("id") Long id) {
+        userService.delete(id);
+        return "redirect:/admin";
+    }
 
 }
