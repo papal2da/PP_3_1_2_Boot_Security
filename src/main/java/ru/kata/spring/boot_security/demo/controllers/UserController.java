@@ -23,11 +23,7 @@ public class UserController {
         model.addAttribute("user", userService.findByUserName(principal.getName()));
         return "pages/showuser";
     }
-    @GetMapping("/{id}")
-    public String getUser(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.findOne(id));
-        return "pages/showuser";
-    }
+
 //    public String getUser(@PathVariable("id") int id, Model model) {
 //        model.addAttribute("user", usersService.findOne(id));
 //        return "pages/showuser";

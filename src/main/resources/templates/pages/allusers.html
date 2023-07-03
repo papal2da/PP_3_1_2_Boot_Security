@@ -7,7 +7,7 @@
 <body>
 
 <div th:each="user : ${users}">
-    <a th:href="@{user/{id}(id=${user.getId()})}"
+    <a th:href="@{admin/user/{id}(id=${user.getId()})}"
        th:text="${user.getName() + ' ' +user.getEmail()}">User</a>
 </div>
 <!--<table class="table table-dark">-->
@@ -40,6 +40,6 @@
 <!--</table>-->
 <br/>
 <hr/>
-<a href="/user/new">Create new user.</a>
+<a href="admin/user/new">Create new user.</a>
 </body>
 </html>

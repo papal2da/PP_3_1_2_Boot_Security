@@ -5,14 +5,10 @@
     <title>Create new user. : </title>
 </head>
 <body>
-<form th:method ="POST" th:action="@{/user}" th:object="${user}">
+<form th:method ="POST" th:action="@{/admin}" th:object="${user}">
     <label for="name">Enter name of user: </label>
     <input type="text" th:field="*{name}" id="name">
     <div style="color:indianred" th:if="${#fields.hasErrors('name')}" th:errors="*{name}">name error.</div>
-    <br/>
-    <label for="surname">Enter surname of user: </label>
-    <input type="text" th:field="*{surname}" id="surname">
-    <div style="color:indianred" th:if="${#fields.hasErrors('surname')}" th:errors="*{surname}">surname error.</div>
     <br/>
     <label for="email">Enter email of user: </label>
     <input type="text" th:field="*{email}" id="email">
