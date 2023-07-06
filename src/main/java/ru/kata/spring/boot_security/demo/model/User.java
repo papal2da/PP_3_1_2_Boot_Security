@@ -15,17 +15,12 @@ public class User {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "name", unique = true)
-    @NotEmpty(message = "Name shouldn't be empty!")
-    @Size(min = 3, message = "Minimal name size is 3")
     private String name;
     @Column(name = "password")
     private String password;
     @Column(name = "email")
-    @NotEmpty(message = "Email shouldn't be empty!")
-    @Email(message = "Email should be valid!")
     private String email;
     @Column(name = "sex")
-    @NotEmpty(message = "Gender shouldn't be empty!")
     private String sex;
     @ManyToMany
     @JoinTable(name = "users_roles",

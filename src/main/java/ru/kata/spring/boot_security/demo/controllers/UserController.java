@@ -18,7 +18,7 @@ public class UserController {
     @GetMapping("/user")
     public String userView(Model model, Principal principal) {
         model.addAttribute("user", userDetailsServiceImpl.findByUserName(principal.getName()));
-        return "pages/showuser";
+        return "pages/userpage";
     }
 
 //    public String getUser(@PathVariable("id") int id, Model model) {

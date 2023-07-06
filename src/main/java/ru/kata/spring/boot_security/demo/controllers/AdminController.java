@@ -1,5 +1,7 @@
 package ru.kata.spring.boot_security.demo.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -9,21 +11,28 @@ import ru.kata.spring.boot_security.demo.services.UserDetailsServiceImpl;
 import ru.kata.spring.boot_security.demo.services.UserService;
 
 import javax.validation.Valid;
+import java.security.Principal;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
     private UserService userService;
+    private UserDetailsServiceImpl userDetailsService;
 
-    public AdminController(UserService userService) {
+    @Autowired
+    public AdminController(UserService userService, UserDetailsServiceImpl userDetailsService) {
         this.userService = userService;
+        this.userDetailsService = userDetailsService;
     }
 
     @GetMapping()
-    public String getAllUsers(Model model) {
+    public String getAllUsers(Model model, Principal principal) {
         model.addAttribute("users", userService.findAll());
-        return "pages/allusers";
+        model.addAttribute("currentUser", userDetailsService.findByUserName(principal.getName()));
+        model.addAttribute("roleList", userService.getRoles());
+        return "pages/adminpage";
     }
+
     @GetMapping("/user/{id}")
     public String getUser(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.findOne(id));
@@ -37,12 +46,10 @@ public class AdminController {
     }
 
     @PostMapping()
-    public String create(@ModelAttribute("user") @Valid User user
-            , BindingResult bindingResult) {
-
-        if (bindingResult.hasErrors()) {
-            return "pages/newuser";
-        }
+    public String create(@ModelAttribute("user") User user) {
+        BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+        String hashedAdmin = passwordEncoder.encode(user.getPassword());
+        user.setPassword(hashedAdmin);
         userService.save(user);
         return "redirect:/admin";
     }
@@ -52,13 +59,10 @@ public class AdminController {
         model.addAttribute("user", userService.findOne(id));
         return "pages/edit";
     }
-
+//
     @PatchMapping("/user/{id}")
     public String update(@PathVariable("id") Long id
-            , @ModelAttribute("user") @Valid User user, BindingResult bindingResult) {
-        if (bindingResult.hasErrors()) {
-            return "pages/edit";
-        }
+            , @ModelAttribute("user") User user) {
         userService.update(id, user);
         return "redirect:/admin";
     }
