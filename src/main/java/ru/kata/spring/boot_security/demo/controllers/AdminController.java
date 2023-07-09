@@ -33,18 +33,6 @@ public class AdminController {
         return "pages/adminpage";
     }
 
-    @GetMapping("/user/{id}")
-    public String getUser(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.findOne(id));
-        return "pages/showuserforadmin";
-    }
-
-    @GetMapping("/user/new")
-    public String addUser(Model model) {
-        model.addAttribute("user", new User());
-        return "pages/newuser";
-    }
-
     @PostMapping()
     public String create(@ModelAttribute("user") User user) {
         BCryptPasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
@@ -53,13 +41,6 @@ public class AdminController {
         userService.save(user);
         return "redirect:/admin";
     }
-
-    @GetMapping("/user/{id}/edit")
-    public String edit(@PathVariable("id") Long id, Model model) {
-        model.addAttribute("user", userService.findOne(id));
-        return "pages/edit";
-    }
-//
     @PatchMapping("/user/{id}")
     public String update(@PathVariable("id") Long id
             , @ModelAttribute("user") User user) {
